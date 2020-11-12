@@ -1,5 +1,3 @@
-console.log("works");
-
 chrome.storage.sync.get("rooms", function(data) {
 	let rooms = data.rooms;
 	let room = rooms.filter(r => r.url === window.location.href)[0];
