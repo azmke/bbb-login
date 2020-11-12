@@ -23,6 +23,6 @@ git clone https://github.com/azmke/bbb-login
 3. Check the box next to **Developer Mode**.
 4. Click **Load Unpacked Extension** and select the directory of your repository.
 
-##Disclaimer
+## Disclaimer
 
 *I AM NOT AFFILIATED, ASSOCIATED, AUTHORIZED, ENDORSED BY, OR IN ANY WAY OFFICIALLY CONNECTED WITH BIGBLUEBUTTON, OR ANY OF ITS SUBSIDIARIES OR ITS AFFILIATES. THE NAMES BIGBLUEBUTTON AS WELL AS RELATED NAMES, MARKS, EMBLEMS AND IMAGES ARE REGISTERED TRADEMARKS OF THEIR RESPECTIVE OWNERS.*
