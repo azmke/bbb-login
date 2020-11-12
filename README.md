@@ -1,6 +1,6 @@
 # bbb-login
 
-**bbb-login** is a browser extension for Google Chrome to automatically save and log in with the access codes for rooms of the web conference system BigBlueButton™️.
+**bbb-login** is a browser extension for Google Chrome to automatically save and log in with the access codes for rooms of the web conference system [BigBlueButton™️](https://bigbluebutton.org/).
 
 ## Features
 
