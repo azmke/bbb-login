@@ -61,50 +61,50 @@ chrome.storage.sync.get("rooms", function(data) {
 
 	} else {
 
-		let description = document.querySelector('meta[property="og:description"]');
-		if (description) {
+		let title = document.getElementsByTagName("h1")[0];
+		if (title) {
 
-			let isBBB = /You have been invited to join (.*?) using BigBlueButton/.exec(description.content);
-			if (isBBB) {
-				console.log("This is a BBB instance.");
+			let codeInput = document.getElementById("room_access_code");
+			if (codeInput) {
 
-				let codeInput = document.getElementById("room_access_code");
-				if (codeInput) {
+				codeInput.form.onsubmit = function(e) {
+					chrome.storage.local.get("pending", function(data) {
+						chrome.storage.local.set({"pending": [...data.pending.filter(p => p.url !== window.location.href), {
+							url: window.location.href,
+							code: codeInput.value
+						}]});
+					});
+				}
 
-					codeInput.form.onsubmit = function(e) {
-						chrome.storage.local.get("pending", function(data) {
-							chrome.storage.local.set({"pending": [...data.pending.filter(p => p.url !== window.location.href), {
-								url: window.location.href,
-								code: codeInput.value
-							}]});
-						});
-					}
+			} else {
 
-				} else {
-
-					let nameInput = document.querySelector("[id$=join_name]");
-					let joinButton = document.getElementById("room-join");
+				let nameInput = document.querySelector("[id$=join_name]");
+				if (nameInput && nameInput.form) {
 
 					chrome.storage.local.get("pending", function(data) {
 						let pending = data.pending.filter(p => p.url === window.location.href)[0];
-						joinButton.onclick = function(e) {
-							let newRoom = {
-								title: isBBB[1],
-								url: window.location.href,
-								code: pending ? pending.code : "",
-								name: nameInput.value,
-								microphone: false
-							};
+						if (pending) {
 
-							chrome.storage.sync.set({"rooms": [newRoom, ...rooms]});
-							chrome.storage.local.set({"pending": data.pending.filter(p => p.url !== window.location.href)});
+							nameInput.form.onsubmit = function(e) {
+								let newRoom = {
+									title: title.innerText,
+									url: window.location.href,
+									code: pending ? pending.code : "",
+									name: nameInput.value,
+									microphone: false
+								};
+
+								chrome.storage.sync.set({"rooms": [newRoom, ...rooms]});
+								chrome.storage.local.set({"pending": data.pending.filter(p => p.url !== window.location.href)});
+							}
+
 						}
-				
 					});
 
 				}
 
 			}
+
 		}
 
 	}
